@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>432777381948-osr7u8edf724h0pj3hdmi4pmqcl7rnnm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.432777381948-osr7u8edf724h0pj3hdmi4pmqcl7rnnm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCRQDst331s0-AYhTcqH3q7ogD0tbhc6ns</string>
+	<key>GCM_SENDER_ID</key>
+	<string>432777381948</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.bbayel.FeatureFlagDemo</string>
+	<key>PROJECT_ID</key>
+	<string>featureflagcombine</string>
+	<key>STORAGE_BUCKET</key>
+	<string>featureflagcombine.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:432777381948:ios:4b62da8128be2238f59b39</string>
+	<key>DATABASE_URL</key>
+	<string>https://featureflagcombine.firebaseio.com</string>
+</dict>
+</plist>

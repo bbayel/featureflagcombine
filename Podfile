@@ -6,7 +6,9 @@ target 'FeatureFlagDemo' do
   use_frameworks!
 
   # Pods for FeatureFlagDemo
+  pod 'Firebase/Performance'
+  pod 'Firebase/Core'
+  pod 'Firebase/DynamicLinks'
   pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
 
 end

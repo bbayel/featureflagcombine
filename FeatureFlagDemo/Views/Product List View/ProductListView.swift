@@ -12,27 +12,32 @@ struct ProductListView: View {
     @ObservedObject var viewModel: ProductListViewModel
     
     var padding: CGFloat = 20
-
+    
     var body: some View {
         GeometryReader { geomatry in
-            VStack(alignment: .center, spacing: 0) {
-                Text("Nouveautés 24S")
-                    .font(.title)
-                    .frame(width: geomatry.size.width, height: 80)
-                    .background(
-                        CustomShape(radius: 20, topLeft: true, topRight: true)
-                            .stroke(Color(.secondarySystemFill), lineWidth: 1)
-                )
-                Spacer().frame(height: 8)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(alignment: .top, spacing: self.padding) {
-                        ForEach(self.viewModel.productViewModels) { pvm in
-                            ProductView(viewModel: pvm)
-                                .frame(
-                                    width: geomatry.size.width,
-                                    height: geomatry.size.height - 80
-                            )
-                                .padding(.bottom, 20)
+            NavigationView {
+                VStack(alignment: .center, spacing: 0) {
+                    Text("Nouveautés 24S")
+                        .font(.title)
+                        .frame(width: geomatry.size.width, height: 80)
+                        .background(
+                            CustomShape(radius: 20, topLeft: true, topRight: true)
+                                .stroke(Color(.secondarySystemFill), lineWidth: 1)
+                        )
+                    Spacer().frame(height: 8)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .top, spacing: self.padding) {
+                            ForEach(self.viewModel.productViewModels) { pvm in
+                                NavigationLink(
+                                   destination: ProductDetailsView(viewModel: pvm)) {
+                                    ProductView(viewModel: pvm)
+                                        .frame(
+                                            width: geomatry.size.width,
+                                            height: geomatry.size.height - 80
+                                        )
+                                        .padding(.bottom, 20)
+                                 }
+                            }
                         }
                     }
                 }

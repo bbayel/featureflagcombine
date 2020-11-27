@@ -20,7 +20,6 @@ final class ProductViewModel: ObservableObject, Identifiable {
         self.price = "\(model.price) €"
     }
     
-    
     static func mockups() -> [ProductViewModel] {
         return [StoryProduct(title: "Sacoche", brand: "LOUIS VUITTON", price: 1540, currency: "EUR", imageHash: "1", sku: "SKU1"),
                 StoryProduct(title: "Veste", brand: "LOUIS VUITTON", price: 2700, currency: "EUR", imageHash: "2", sku: "SKU2"),
