@@ -9,18 +9,18 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     
-    @ObservedObject var viewModel: ProductViewModel
+    @ObservedObject var viewModel: DetailsProductViewModel
     private let imageRadio: CGFloat = 0.7
     
     var body: some View {
         GeometryReader { geomatry in
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 8) {
-                    Text(viewModel.brand)
+                    Text(viewModel.product.brand)
                         .font(.largeTitle)
-                    Text(viewModel.title)
+                    Text(viewModel.product.title)
                         .font(.title2)
-                    Image(self.viewModel.imageName)
+                    Image(self.viewModel.product.imageName)
                         .resizable()
                         .scaledToFit()
                         .frame(
@@ -28,16 +28,20 @@ struct ProductDetailsView: View {
                             height: geomatry.size.height * self.imageRadio
                         )
                         .background(Color.white)
-                    BuyBox()
+                    BuyBox(stateExpressCheckoutLoaded: viewModel.state)
+                        .onAppear(perform: {
+                            viewModel.load()
+                        })
                 }
                 .background(Color(.systemBackground))
             }
         }
     }
+    
 }
 
 struct ProductDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetailsView(viewModel: ProductViewModel.mockups().first!)
+        ProductDetailsView(viewModel: DetailsProductViewModel(vm: ProductViewModel.mockups().first!))
     }
 }

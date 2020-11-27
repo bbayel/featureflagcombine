@@ -10,15 +10,7 @@ import Combine
 import FirebaseRemoteConfig
 
 protocol FeatureFlagHelperMethods {
-    func refreshConfig(_ completion: (() -> Void)?)
-    
     var isExpressCheckoutEnabled: AnyPublisher<Bool, Error> { get }
-}
-
-extension FeatureFlagHelperMethods {
-    func refreshConfig(_ completion: (() -> Void)? = nil) {
-        refreshConfig(completion)
-    }
 }
 
 private enum FeatureFlagKeys: String {
@@ -34,41 +26,25 @@ class FeatureFlagHelper: FeatureFlagHelperMethods {
     init() {
         let settings = RemoteConfigSettings()
         settings.fetchTimeout = 10.0 // timeout to 10s
-        settings.minimumFetchInterval = 120 * 60 // every 120 min
+        settings.minimumFetchInterval = 0
         remoteConfig.configSettings = settings
         remoteConfig.setDefaults(fromPlist: "DefaultRemoteConfig")
     }
+
+    var isExpressCheckoutEnabled: AnyPublisher<Bool, Error> {
+        return booleanPublisher(for: .expressCheckoutEnabled)
+    }
     
-    
-    func refreshConfig(_ completion: (() -> Void)?) {
-        
-        remoteConfig.ensureInitialized { [weak self] (initializationError) in
-            if let initializationError = initializationError {
-                print("[RemoteConfig] initialization remote config has errored: \(initializationError.localizedDescription)")
+    private func booleanPublisher(for key: FeatureFlagKeys) -> AnyPublisher<Bool, Error> {
+        remoteConfig.fetchAndActivate()
+            .map { (_) -> Bool in
+                return self.boolConfiguration(for: key)
             }
-            
-            self?.remoteConfig.fetchAndActivate { (status, error) in
-                print("[RemoteConfig] fetch remote config completed with status : [\(status)]")
-                if let error = error {
-                    print("[RemoteConfig] fetch remote config has errored: \(error.localizedDescription)")
-                }
-                DispatchQueue.main.async {
-                    completion?()
-                }
-            }
-        }
+            .eraseToAnyPublisher()
     }
     
     private func boolConfiguration(for key: FeatureFlagKeys) -> Bool {
         return remoteConfig.configValue(forKey: key.rawValue).boolValue
-    }
-    
-    var isExpressCheckoutEnabled: AnyPublisher<Bool, Error> {
-        remoteConfig.fetchAndActivate()
-            .map { (_) -> Bool in
-                return self.boolConfiguration(for: .expressCheckoutEnabled)
-            }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -85,6 +61,7 @@ extension RemoteConfig {
                     promise(.success(result))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
 }

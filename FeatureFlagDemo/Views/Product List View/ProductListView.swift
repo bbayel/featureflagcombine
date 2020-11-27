@@ -28,8 +28,8 @@ struct ProductListView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top, spacing: self.padding) {
                             ForEach(self.viewModel.productViewModels) { pvm in
-                                NavigationLink(
-                                   destination: ProductDetailsView(viewModel: pvm)) {
+                                let detailVM = DetailsProductViewModel(vm: pvm)
+                                NavigationLink(destination: ProductDetailsView(viewModel: detailVM)) {
                                     ProductView(viewModel: pvm)
                                         .frame(
                                             width: geomatry.size.width,
