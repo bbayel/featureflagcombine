@@ -28,7 +28,7 @@ struct ProductDetailsView: View {
                             height: geomatry.size.height * self.imageRadio
                         )
                         .background(Color.white)
-                    BuyBox(stateExpressCheckoutLoaded: viewModel.state)
+                    BuyBox(stateExpressCheckoutLoaded: $viewModel.state)
                         .onAppear(perform: {
                             viewModel.load()
                         })

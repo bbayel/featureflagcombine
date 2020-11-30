@@ -23,11 +23,12 @@ final class DetailsProductViewModel: ObservableObject, Identifiable {
 
     init(vm: ProductViewModel) {
         self.product = vm
-        self.state = .loading
+        self.state = .idle
     }
     
     
     func load() {
+        self.state = .loading
         FeatureFlagHelper.shared.isExpressCheckoutEnabled
             .catch { _ in Just(false) }
             .receive(on: RunLoop.main)
